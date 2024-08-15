@@ -1,20 +1,21 @@
-import { ReactElement, useContext } from "react";
+import { ReactElement } from "react";
 import "../css/productspage.css"
-import { ProductsContext } from "../context/ProductContextProvider";
 import ProductBox from "./ProductBox";
+import { ProductPageProps } from "../interfaces/interfaces";
 
-const Products = (): ReactElement => {
-
-    const { products } = useContext(ProductsContext);
+const Products = ({ products }: ProductPageProps): ReactElement => {
 
     return (
         <section className="products-page">
-            {products.map(product => {
+            {products.length ? 
+            products.map(product => {
                 return (
                     <ProductBox key={product.id} product={product} />
                 )
-            })}
+            }) : <p>No products by such name.</p>}
         </section>
+
+
     )
 }
 

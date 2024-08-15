@@ -24,16 +24,20 @@ export interface testAction {
     payload?: number
 }
 
-export interface LayoutPropTypes {
+export interface LayoutProps {
     showCart: boolean,
     setShowCart: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export interface ProductBoxPropTypes {
+export interface ProductBoxProps {
     product: Product
 }
 
 export interface ProductContextType {
+    sortedProducts: Product[]
+}
+
+export interface ProductPageProps {
     products: Product[]
 }
 

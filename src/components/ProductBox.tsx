@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
-import { ProductBoxPropTypes } from "../interfaces/interfaces";
+import { ProductBoxProps } from "../interfaces/interfaces";
 
-const ProductBox = ({ product }: ProductBoxPropTypes): ReactElement => {
+const ProductBox = ({ product }: ProductBoxProps): ReactElement => {
     return (
         <article className="product-line-box">
             <div className="product-title">

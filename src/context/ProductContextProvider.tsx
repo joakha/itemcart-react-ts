@@ -40,15 +40,17 @@ const products: Product[] = [
     }
 ]
 
+const sortedProducts = products.sort((a: Product, b: Product) => a.name.localeCompare(b.name));
+
 const initProductContextState: ProductContextType = {
-    products: []
+    sortedProducts: []
 }
 
 export const ProductsContext = createContext<ProductContextType>(initProductContextState);
 
 export const ProductContextProvider = ({ children }: ChildrenType): ReactElement => {
     return (
-        <ProductsContext.Provider value={{ products }}>
+        <ProductsContext.Provider value={{ sortedProducts }}>
             {children}
         </ProductsContext.Provider>
     )

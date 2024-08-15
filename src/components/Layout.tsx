@@ -3,8 +3,9 @@ import "../css/layout.css"
 import { LayoutPropTypes } from "../interfaces/interfaces";
 import ProductCart from "./ProductCart";
 import ProductsPage from "./ProductsPage";
+import { ProductContextProvider } from '../context/ProductContextProvider.tsx'
 
-const Layout = ({showCart, setShowCart}: LayoutPropTypes): ReactElement => {
+const Layout = ({ showCart, setShowCart }: LayoutPropTypes): ReactElement => {
 
     const switchView = (value: boolean) => {
         value ? setShowCart(true) : setShowCart(false);
@@ -20,10 +21,16 @@ const Layout = ({showCart, setShowCart}: LayoutPropTypes): ReactElement => {
 
             <nav className="cart-sidebar">
                 <button className="navlink" onClick={() => switchView(false)}>Products</button>
-                <button className="navlink" onClick={() => switchView(true)}>Cart</button>                    
+                <button className="navlink" onClick={() => switchView(true)}>Cart</button>
             </nav>
 
-            <main>{showCart ? <ProductCart/> : <ProductsPage/>}</main>
+            <main>{showCart ?
+                <ProductCart /> :
+                <ProductContextProvider>
+                    <ProductsPage />
+                </ProductContextProvider>
+            }
+            </main>
         </>
     )
 }

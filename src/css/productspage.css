@@ -1,6 +1,6 @@
 .products-page {
     display: grid;
-    grid-template-columns: 450px 450px 450px 450px;
+    grid-template-columns: 450px 450px 450px 450px 450px;
     row-gap: 50px;
     column-gap: 30px;
 }

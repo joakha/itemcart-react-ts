@@ -7,15 +7,12 @@ const Products = ({ products }: ProductPageProps): ReactElement => {
 
     return (
         <section className="products-page">
-            {products.length ? 
-            products.map(product => {
-                return (
-                    <ProductBox key={product.id} product={product} />
-                )
-            }) : <p>No products by such name.</p>}
+            {
+                products.length ?
+                    products.map(product => <ProductBox key={product.id} product={product} />) :
+                    <p>No products by such name.</p>
+            }
         </section>
-
-
     )
 }
 

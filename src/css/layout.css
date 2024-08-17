@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding-top: 200px;
-    padding-left: 175px;
+    padding-left: 155px;
     background-color: rgb(230, 230, 230);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -34,7 +34,7 @@ body {
     top: 150px;
     left: 0;
     bottom: 0;
-    width: 125px;
+    width: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -1,47 +1,37 @@
-import { ChangeEvent, ReactElement, useContext, useRef, useState } from "react";
+import { ChangeEvent, ReactElement, useContext, useState } from "react";
 import "../css/layout.css"
-import { LayoutProps, Product } from "../interfaces/interfaces";
+import { Product } from "../interfaces/interfaces";
 import ProductCart from "./ProductCart";
 import ProductsPage from "./ProductsPage";
 import { ProductsContext } from "../context/ProductContextProvider.tsx";
+import Header from "./Header.tsx";
+import Sidebar from "./Sidebar.tsx";
+import { Route, Routes } from "react-router-dom";
 
-const Layout = ({ showCart, setShowCart }: LayoutProps): ReactElement => {
+const Layout = (): ReactElement => {
 
     const { sortedProducts } = useContext(ProductsContext);
-    const keyword = useRef<HTMLInputElement>(null)
-    const [filteredResults, setFilteredResults] = useState<Product[]>([]);
+    const [keyword, setKeyword] = useState("");
+    const filteredResults: Product[] = sortedProducts.filter(product => product.name.toLowerCase().includes(keyword.toLowerCase()));
 
     const filterProducts = (e: ChangeEvent<HTMLInputElement>) => {
-        const filteredResults = sortedProducts.filter(product => product.name.toLowerCase().includes(e.target.value.toLowerCase()));
-        setFilteredResults(filteredResults);
-    }
-
-    const switchView = (value: boolean) => {
-        value ? setShowCart(true) : setShowCart(false);
+        setKeyword(e.target.value);
     }
 
     return (
         <>
-            <header className="cart-header">
-                <div className="header-box" >{showCart ? "Cart Page" : "Product Page"}</div>
-                <input className="header-search" placeholder="Filter products by name..." ref={keyword} onChange={filterProducts} />
-                <div className="header-box">Cart Item Count</div>
-            </header>
-
-            <nav className="cart-sidebar">
-                <button className="navlink" onClick={() => switchView(false)}>Products</button>
-                <button className="navlink" onClick={() => switchView(true)}>Cart</button>
-            </nav>
-
+            <Header filterProducts={filterProducts} />
+            <Sidebar />
             <main>
-                {showCart ?
-                    <ProductCart /> :
-                    <ProductsPage
-                        products={
-                            keyword.current?.value === "" ? sortedProducts : filteredResults
-                        }
-                    />
-                }
+                <Routes>
+                    <Route path="/" element={
+                        <ProductsPage
+                            products={
+                                keyword.trim() === "" ? sortedProducts : filteredResults
+                            }
+                        />} />
+                    <Route path="/cart" element={<ProductCart />} />
+                </Routes>
             </main>
         </>
     )

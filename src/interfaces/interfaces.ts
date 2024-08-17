@@ -1,4 +1,4 @@
-import { ReactElement } from "react"
+import { ChangeEvent, ReactElement } from "react"
 
 export interface Product {
     id: number,
@@ -16,17 +16,13 @@ export interface CartProduct {
 }
 
 export interface test {
+    headerTitle: string,
     count: number
 }
 
 export interface testAction {
     type: string,
-    payload?: number
-}
-
-export interface LayoutProps {
-    showCart: boolean,
-    setShowCart: React.Dispatch<React.SetStateAction<boolean>>
+    payload?: number | string
 }
 
 export interface ProductBoxProps {
@@ -39,6 +35,10 @@ export interface ProductContextType {
 
 export interface ProductPageProps {
     products: Product[]
+}
+
+export interface headerProps {
+    filterProducts: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export interface CartReducerStateType {

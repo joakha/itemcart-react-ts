@@ -30,7 +30,8 @@ export interface ProductBoxProps {
 }
 
 export interface ProductContextType {
-    sortedProducts: Product[]
+    loading: boolean,
+    products: Product[]
 }
 
 export interface ProductPageProps {

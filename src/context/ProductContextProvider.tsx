@@ -1,56 +1,36 @@
 import { ChildrenType, Product, ProductContextType } from "../interfaces/interfaces"
-import { createContext, ReactElement } from "react"
-
-const products: Product[] = [
-    {
-        id: 1,
-        name: "Banana",
-        description: "A delicious banana",
-        price: 1.99
-    },
-    {
-        id: 2,
-        name: "Watermelon",
-        description: "Best watermelon ever",
-        price: 4.99
-    },
-    {
-        id: 3,
-        name: "Ketchup",
-        description: "Tomato Ketchup",
-        price: 5.99
-    },
-    {
-        id: 4,
-        name: "Socks",
-        description: "Comfortable Socks",
-        price: 9.99
-    },
-    {
-        id: 5,
-        name: "Computer Mouse",
-        description: "A lightweight mouse",
-        price: 19.99
-    },
-    {
-        id: 6,
-        name: "Cheese",
-        description: "Cheap cheese",
-        price: 2.99
-    }
-]
-
-const sortedProducts = products.sort((a: Product, b: Product) => a.name.localeCompare(b.name));
+import { createContext, ReactElement, useEffect, useState } from "react"
 
 const initProductContextState: ProductContextType = {
-    sortedProducts: []
+    loading: true,
+    products: []
 }
 
 export const ProductsContext = createContext<ProductContextType>(initProductContextState);
 
 export const ProductContextProvider = ({ children }: ChildrenType): ReactElement => {
+
+    const [products, setProducts] = useState<Product[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const fetchProductData = async () => {
+            try {
+                const response = await fetch("http://localhost:3000/products");
+                const data: Product[] = await response.json();
+                setProducts(data.sort((a: Product, b: Product) => a.name.localeCompare(b.name)));
+                setLoading(false)
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchProductData()
+
+    }, [])
+
     return (
-        <ProductsContext.Provider value={{ sortedProducts }}>
+        <ProductsContext.Provider value={{ loading, products }}>
             {children}
         </ProductsContext.Provider>
     )

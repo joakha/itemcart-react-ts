@@ -10,9 +10,9 @@ import { Route, Routes } from "react-router-dom";
 
 const Layout = (): ReactElement => {
 
-    const { sortedProducts } = useContext(ProductsContext);
+    const { products } = useContext(ProductsContext);
     const [keyword, setKeyword] = useState("");
-    const filteredResults: Product[] = sortedProducts.filter(product => product.name.toLowerCase().includes(keyword.toLowerCase()));
+    const filteredResults: Product[] = products.filter(product => product.name.toLowerCase().includes(keyword.toLowerCase()));
 
     const filterProducts = (e: ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.target.value);
@@ -27,7 +27,7 @@ const Layout = (): ReactElement => {
                     <Route path="/" element={
                         <ProductsPage
                             products={
-                                keyword.trim() === "" ? sortedProducts : filteredResults
+                                keyword.trim() === "" ? products : filteredResults
                             }
                         />} />
                     <Route path="/cart" element={<ProductCart />} />

@@ -25,27 +25,31 @@ export interface testAction {
     payload?: number | string
 }
 
-export interface ProductBoxProps {
-    product: Product
+export interface CartReducerStateType {
+    cart: CartProduct[]
 }
 
-export interface ProductContextType {
-    loading: boolean,
-    products: Product[]
+//types for component props
+
+export interface HeaderProps {
+    filterProducts: (e: ChangeEvent<HTMLInputElement>) => void
+}
+
+export interface ProductBoxProps {
+    product: Product
 }
 
 export interface ProductPageProps {
     products: Product[]
 }
 
-export interface headerProps {
-    filterProducts: (e: ChangeEvent<HTMLInputElement>) => void
-}
-
-export interface CartReducerStateType {
-    cart: CartProduct[]
-}
+//types for context
 
 export interface ChildrenType {
     children: ReactElement | ReactElement[]
+}
+
+export interface ProductContextType {
+    loading: boolean,
+    products: Product[]
 }

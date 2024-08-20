@@ -8,10 +8,10 @@ const Sidebar = (): ReactElement => {
 
     return (
         <nav className="cart-sidebar">
-            <Link to={"/"}>
+            <Link style={{marginTop: "100px"}} to={"/"}>
             <button className="navlink" onClick={() => dispatch({type: useReducerActions.updateHeaderTitle, payload: "Product Page"})}>Products</button>
             </Link>
-            <Link to={"/cart"}>
+            <Link style={{marginTop: "100px"}} to={"/cart"}>
             <button className="navlink" onClick={() => dispatch({type: useReducerActions.updateHeaderTitle, payload: "Cart Page"})}>Cart</button>
             </Link>
         </nav>

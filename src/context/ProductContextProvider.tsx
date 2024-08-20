@@ -1,8 +1,9 @@
 import { ChildrenType, Product, ProductContextType } from "../interfaces/interfaces"
 import { createContext, ReactElement, useEffect, useState } from "react"
+import { databaseURL } from "../constants/constants"
 
 const initProductContextState: ProductContextType = {
-    loading: true,
+    loading: false,
     products: []
 }
 
@@ -11,12 +12,13 @@ export const ProductsContext = createContext<ProductContextType>(initProductCont
 export const ProductContextProvider = ({ children }: ChildrenType): ReactElement => {
 
     const [products, setProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        const fetchProductData = async () => {
+        const fetchProductData = async (url: string) => {
             try {
-                const response = await fetch("http://localhost:3000/products");
+                setLoading(true);
+                const response = await fetch(url);
                 const data: Product[] = await response.json();
                 setProducts(data.sort((a: Product, b: Product) => a.name.localeCompare(b.name)));
                 setLoading(false)
@@ -25,7 +27,7 @@ export const ProductContextProvider = ({ children }: ChildrenType): ReactElement
             }
         }
 
-        fetchProductData()
+        fetchProductData(databaseURL);
 
     }, [])
 

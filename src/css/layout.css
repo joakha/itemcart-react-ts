@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding-top: 200px;
     padding-left: 155px;
-    background-color: rgb(230, 230, 230);
+    background-color: #ECAD8F;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -15,8 +15,9 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-bottom: 1px solid rgb(0, 0, 0);
-    background-color: white;
+    background-color: #AF6E4E;
+    color: whitesmoke;
+    box-shadow: 0px 0px 5px black;
 }
 
 .cart-header .header-box {
@@ -27,6 +28,9 @@ body {
     height: 50px;
     width: 300px;
     font-size: 24px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 1px 1px 5px;
 }
 
 .cart-sidebar {
@@ -38,22 +42,22 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-right: 1px solid rgb(0, 0, 0);
-    background-color: white;
+    background-color: #AF6E4E;
+    color: whitesmoke;
 }
 
 .cart-sidebar .navlink {
-    margin-top: 100px;
     border: none;
     height: 50px;
     width: 75px;
-    background-color: rgb(172, 172, 172);
+    background-color: #daa186;
     color: whitesmoke;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.15s;
+    box-shadow: 1px 1px 3px black;
 }
 
 .cart-sidebar .navlink:hover {
-    background-color: rgb(187, 187, 187);
+    background-color: #ECAD8F;
 }

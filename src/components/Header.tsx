@@ -8,12 +8,12 @@ const Header = ({ filterProducts }: HeaderProps): ReactElement => {
 
     return (
         <header className="cart-header">
-            <div className="header-box" >{headerTitle}</div>
+            <p className="header-box" >{headerTitle}</p>
             {
                 headerTitle === "Product Page" &&
-                <input className="header-search" placeholder="Filter products by name..." onChange={filterProducts} />
+                <input className="header-search" placeholder="Search products by name..." onChange={filterProducts} />
             }
-            <div className="header-box">Cart Item Count</div>
+            <p className="header-box">Cart Item Count</p>
         </header>
     )
 

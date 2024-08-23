@@ -25,6 +25,10 @@
     line-height: 25px;
 }
 
+.in-cart-message {
+    color: rgb(43, 180, 43);
+}
+
 .cart-product-delete {
     border: none;
     height: 50px;

@@ -1,3 +1,7 @@
+p {
+    margin: 0;
+}
+
 .products-page {
     display: grid;
     grid-template-columns: 450px 450px 450px 450px 450px;

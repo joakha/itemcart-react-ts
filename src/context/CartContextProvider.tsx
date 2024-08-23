@@ -12,8 +12,8 @@ type useReducerActionType = typeof useReducerActions;
 const useCartContext = (useReducerActions: useReducerActionType) => {
 
     const initCartState: CartStateType = {
-        headerTitle: "Product Page",
-        cart: []
+        headerTitle: "",
+        cart: JSON.parse(localStorage.getItem("cart") || "[]")
     }
 
     const reducer = (state: CartStateType, action: CartStateActionType): CartStateType => {
@@ -25,9 +25,11 @@ const useCartContext = (useReducerActions: useReducerActionType) => {
                 const filteredCart: CartProduct[] = state.cart.filter(product => product.id !== payloadProduct.id);
                 const productInCart = state.cart.find(product => product.id === payloadProduct.id);
                 const productQuantity: number = productInCart ? productInCart.quantity + 1 : 1;
+                localStorage.setItem("cart", JSON.stringify([...filteredCart, { ...payloadProduct, quantity: productQuantity }]));
                 return { ...state, cart: [...filteredCart, { ...payloadProduct, quantity: productQuantity }] };
             case useReducerActions.removeFromCart:
                 const { id } = action.payload as CartProduct;
+                localStorage.setItem("cart", JSON.stringify(state.cart.filter(cartProduct => cartProduct.id !== id)));
                 return { ...state, cart: state.cart.filter(cartProduct => cartProduct.id !== id) };
             default:
                 throw new Error()

@@ -9,11 +9,11 @@ const CartProductRow = ({ cartProduct }: CartProductRowProps): ReactElement => {
     return (
         <article className="cart-product-row">
             <div className="cart-product-info">
-                <div className="cart-product-title">{cartProduct.name}</div>
-                <div>{cartProduct.description}</div>
+                <p className="cart-product-title">{cartProduct.name}</p>
+                <p>{cartProduct.description}</p>
             </div>
-            <div>Quantity: {cartProduct.quantity}</div>
-            <div>Total product price: {cartProduct.price * cartProduct.quantity}</div>
+            <p>Quantity: {cartProduct.quantity}</p>
+            <p>Total product price: {cartProduct.price * cartProduct.quantity}</p>
             <button className="cart-product-delete" onClick={() => dispatch({type: useReducerActions.removeFromCart, payload: cartProduct})}>Remove</button>
         </article>
     )

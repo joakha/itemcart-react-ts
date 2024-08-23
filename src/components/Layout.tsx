@@ -1,12 +1,12 @@
 import { ChangeEvent, ReactElement, useContext, useState } from "react";
 import "../css/layout.css"
 import { Product } from "../interfaces/interfaces";
-import ProductCart from "./ProductCart";
 import ProductsPage from "./ProductsPage";
 import { ProductsContext } from "../context/ProductContextProvider.tsx";
 import Header from "./Header.tsx";
 import Sidebar from "./Sidebar.tsx";
 import { Route, Routes } from "react-router-dom";
+import CartPage from "./CartPage.tsx";
 
 const Layout = (): ReactElement => {
 
@@ -30,7 +30,7 @@ const Layout = (): ReactElement => {
                                 keyword.trim() === "" ? products : filteredResults
                             }
                         />} />
-                    <Route path="/cart" element={<ProductCart />} />
+                    <Route path="/cart" element={<CartPage />} />
                 </Routes>
             </main>
         </>

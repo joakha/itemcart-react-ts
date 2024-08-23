@@ -36,5 +36,8 @@
             "description": "Cheap cheese",
             "price": 2.99
         }
+    ],
+    "cart": [
+        
     ]
 }

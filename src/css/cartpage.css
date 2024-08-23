@@ -1,0 +1,41 @@
+.cart-content {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.cart-product-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 1px 1px 5px;
+}
+
+.cart-product-title {
+    font-size: 24px;
+}
+
+.cart-product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    line-height: 25px;
+}
+
+.cart-product-delete {
+    border: none;
+    height: 50px;
+    width: 75px;
+    background-color: rgb(172, 172, 172);
+    color: whitesmoke;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.cart-product-delete:hover {
+    background-color: rgb(187, 187, 187);
+}

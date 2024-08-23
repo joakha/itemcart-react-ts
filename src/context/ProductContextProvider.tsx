@@ -18,7 +18,7 @@ export const ProductContextProvider = ({ children }: ChildrenType): ReactElement
         const fetchProductData = async (url: string) => {
             try {
                 setLoading(true);
-                const response = await fetch(url);
+                const response = await fetch(url + "/products");
                 const data: Product[] = await response.json();
                 setProducts(data.sort((a: Product, b: Product) => a.name.localeCompare(b.name)));
                 setLoading(false)

@@ -1,1 +1,1 @@
-export const databaseURL: string = "http://localhost:3000/products";
+export const databaseURL: string = "http://localhost:3000";

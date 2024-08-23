@@ -1,7 +1,11 @@
-import { ReactElement } from "react";
+import { ReactElement, useContext } from "react";
 import { ProductBoxProps } from "../interfaces/interfaces";
+import { CartContext } from "../context/CartContextProvider";
 
 const ProductBox = ({ product }: ProductBoxProps): ReactElement => {
+
+    const { useReducerActions, dispatch } = useContext(CartContext);
+
     return (
         <article className="product-line-box">
             <div className="product-title">
@@ -11,10 +15,10 @@ const ProductBox = ({ product }: ProductBoxProps): ReactElement => {
             <div className="product-info-box">
                 <div className="product-info">
                     <div>{product.description}</div>
-                    <div>{product.price}</div>
+                    <div>{String(product.price) + "€"}</div>
                 </div>
 
-                <button className="product-info-button">Add to Cart</button>
+                <button className="product-info-button" onClick={() => dispatch({ type: useReducerActions.addToCart, payload: product })}>Add to Cart</button>
             </div>
         </article>
     )

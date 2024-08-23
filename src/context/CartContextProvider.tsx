@@ -1,50 +1,57 @@
 import { createContext, ReactElement, useReducer } from "react"
-import { ChildrenType, test, testAction } from "../interfaces/interfaces"
+import { ChildrenType, CartStateType, CartStateActionType, Product, CartProduct } from "../interfaces/interfaces"
 
 const useReducerActions = {
-    updateCount: "updateCount",
-    updateHeaderTitle: "updateHeaderTitle"
+    updateHeaderTitle: "updateHeaderTitle",
+    addToCart: "addToCart",
+    removeFromCart: "removeFromCart"
 }
 
 type useReducerActionType = typeof useReducerActions;
 
 const useCartContext = (useReducerActions: useReducerActionType) => {
 
-    const initialCartState: test = {
+    const initCartState: CartStateType = {
         headerTitle: "Product Page",
-        count: 0
+        cart: []
     }
 
-    const reducer = (state: test, action: testAction) => {
+    const reducer = (state: CartStateType, action: CartStateActionType): CartStateType => {
         switch (action.type) {
             case useReducerActions.updateHeaderTitle:
-                return { ...state, headerTitle: action.payload as string}
-            case useReducerActions.updateCount:
-                return { ...state, count: state.count + 1 }
+                return { ...state, headerTitle: action.payload as string }
+            case useReducerActions.addToCart:
+                const payloadProduct = action.payload as Product;
+                const filteredCart: CartProduct[] = state.cart.filter(product => product.id !== payloadProduct.id);
+                const productInCart = state.cart.find(product => product.id === payloadProduct.id);
+                const productQuantity: number = productInCart ? productInCart.quantity + 1 : 1;
+                return { ...state, cart: [...filteredCart, { ...payloadProduct, quantity: productQuantity }] };
+            case useReducerActions.removeFromCart:
+                const { id } = action.payload as CartProduct;
+                return { ...state, cart: state.cart.filter(cartProduct => cartProduct.id !== id) };
             default:
                 throw new Error()
         }
     }
 
-    const [state, dispatch] = useReducer(reducer, initialCartState);
-
-    const copiedCount = state.count;
+    const [state, dispatch] = useReducer(reducer, initCartState);
 
     const headerTitle = state.headerTitle;
+    const sortedCart: CartProduct[] = state.cart.sort((a: CartProduct, b: CartProduct) => a.name.localeCompare(b.name));
 
-    return { useReducerActions, dispatch, copiedCount, headerTitle };
+    return { useReducerActions, dispatch, headerTitle, sortedCart };
 }
 
-type testContextType = ReturnType<typeof useCartContext>
+type CartContextType = ReturnType<typeof useCartContext>
 
-const initTestState: testContextType = {
+const initCartContextState: CartContextType = {
     useReducerActions,
     dispatch: () => { },
-    copiedCount: 0,
-    headerTitle: ""
+    headerTitle: "",
+    sortedCart: []
 }
 
-export const CartContext = createContext<testContextType>(initTestState);
+export const CartContext = createContext<CartContextType>(initCartContextState);
 
 export const CartContextProvider = ({ children }: ChildrenType): ReactElement => {
     return (

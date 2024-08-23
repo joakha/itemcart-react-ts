@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding-top: 200px;
     padding-left: 155px;
+    padding-right: 35px;
     background-color: #ECAD8F;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -15,7 +16,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #AF6E4E;
+    background-color: #8d5940;
     color: whitesmoke;
     box-shadow: 0px 0px 5px black;
     padding-left: 50px;
@@ -39,7 +40,7 @@ body {
     position: fixed;
     top: 150px;
     left: 0;
-    bottom: 0;
+    bottom: 75px;
     width: 120px;
     display: flex;
     flex-direction: column;
@@ -62,4 +63,39 @@ body {
 
 .cart-sidebar .navlink:hover {
     background-color: #ECAD8F;
+}
+
+.layout-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 75px;
+    background-color: #8d5940;
+    color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.layout-footer .order-button {
+    border: none;
+    height: 50px;
+    background-color: #daa186;
+    color: whitesmoke;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    box-shadow: 1px 1px 3px black;
+    margin-left: 50px;
+}
+
+.layout-footer .order-button:hover { 
+    background-color: #ECAD8F;
+}
+
+.placeholder {
+    text-align: center;
 }

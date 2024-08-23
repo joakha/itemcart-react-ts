@@ -1,22 +1,17 @@
-import { ReactElement, useContext } from "react"
+import { ReactElement } from "react"
 import { Link } from "react-router-dom"
-import { CartContext } from "../context/CartContextProvider"
 
 const Sidebar = (): ReactElement => {
-
-    const {useReducerActions, dispatch} = useContext(CartContext);
-
     return (
         <nav className="cart-sidebar">
-            <Link style={{marginTop: "100px"}} to={"/"}>
-            <button className="navlink" onClick={() => dispatch({type: useReducerActions.updateHeaderTitle, payload: "Product Page"})}>Products</button>
+            <Link style={{ marginTop: "100px" }} to={"/"}>
+                <button className="navlink">Products</button>
             </Link>
-            <Link style={{marginTop: "100px"}} to={"/cart"}>
-            <button className="navlink" onClick={() => dispatch({type: useReducerActions.updateHeaderTitle, payload: "Cart Page"})}>Cart</button>
+            <Link style={{ marginTop: "100px" }} to={"/cart"}>
+                <button className="navlink">Cart</button>
             </Link>
         </nav>
     )
-
 }
 
 export default Sidebar

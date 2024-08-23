@@ -4,7 +4,7 @@ import { CartContext } from "../context/CartContextProvider"
 
 const Header = ({ filterProducts }: HeaderProps): ReactElement => {
 
-    const { headerTitle } = useContext(CartContext);
+    const { headerTitle, cartProductCount } = useContext(CartContext);
 
     return (
         <header className="cart-header">
@@ -13,7 +13,7 @@ const Header = ({ filterProducts }: HeaderProps): ReactElement => {
                 headerTitle === "Product Page" &&
                 <input className="header-search" placeholder="Search products by name..." onChange={filterProducts} />
             }
-            <p className="header-box">Cart Item Count</p>
+            <p className="header-box">Cart Product Count: {cartProductCount}</p>
         </header>
     )
 

@@ -5,18 +5,23 @@ import "../css/cartpage.css"
 
 const ProductCart = (): ReactElement => {
 
-    const { useReducerActions, dispatch , sortedCart } = useContext(CartContext);
+    const { useReducerActions, dispatch, sortedCart } = useContext(CartContext);
 
     useEffect(() => {
-        dispatch({type: useReducerActions.updateHeaderTitle, payload: "Cart Page"});
+        dispatch({ type: useReducerActions.updateHeaderTitle, payload: "Cart Page" });
     }, [])
 
     return (
-        <section className="cart-content">
-            {sortedCart.map(cartProduct => (
-                <CartProductRow key={cartProduct.id} cartProduct={cartProduct} />
-            ))}
-        </section>
+        <>
+            <section className="cart-content">
+                {
+                    sortedCart.length > 0 ? sortedCart.map(cartProduct => (
+                        <CartProductRow key={cartProduct.id} cartProduct={cartProduct} />
+                    )) :
+                        <p className="placeholder">Cart is Empty.</p>
+                }
+            </section>
+        </>
     );
 }
 

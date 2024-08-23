@@ -11,19 +11,24 @@ const Products = ({ products }: ProductPageProps): ReactElement => {
     const { useReducerActions, dispatch } = useContext(CartContext)
 
     useEffect(() => {
-        dispatch({type: useReducerActions.updateHeaderTitle, payload: "Product Page"});
+        dispatch({ type: useReducerActions.updateHeaderTitle, payload: "Product Page" });
     }, [])
 
     return (
-        <section className="products-page">
+        <>
             {
                 loading ?
-                    <p>Loading products...</p> :
-                    products.length ?
-                        products.map(product => <ProductBox key={product.id} product={product} />) :
-                        <p>No products by such name.</p>
+                    (<p className="placeholder">Loading products...</p>) :
+                    products.length ? (
+                        <section className="products-page">
+                            {
+                                products.map(product => <ProductBox key={product.id} product={product} />)
+                            }
+                        </section>
+                    ) :
+                        (< p className="placeholder">No products by such name.</p>)
             }
-        </section>
+        </>
     )
 }
 

@@ -7,6 +7,7 @@ import Header from "./Header.tsx";
 import Sidebar from "./Sidebar.tsx";
 import { Route, Routes } from "react-router-dom";
 import CartPage from "./CartPage.tsx";
+import Footer from "./Footer.tsx";
 
 const Layout = (): ReactElement => {
 
@@ -33,6 +34,7 @@ const Layout = (): ReactElement => {
                     <Route path="/cart" element={<CartPage />} />
                 </Routes>
             </main>
+            <Footer />
         </>
     )
 }

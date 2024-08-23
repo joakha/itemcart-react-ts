@@ -13,8 +13,9 @@ const CartProductRow = ({ cartProduct }: CartProductRowProps): ReactElement => {
                 <p>{cartProduct.description}</p>
             </div>
             <p>Quantity: {cartProduct.quantity}</p>
-            <p>Total product price: {cartProduct.price * cartProduct.quantity}</p>
-            <button className="cart-product-delete" onClick={() => dispatch({type: useReducerActions.removeFromCart, payload: cartProduct})}>Remove</button>
+            <p>Individual Product Price: {cartProduct.price}€</p>
+            <p>Total Product price: {cartProduct.price * cartProduct.quantity}€</p>
+            <button className="cart-product-delete" onClick={() => dispatch({ type: useReducerActions.removeFromCart, payload: cartProduct })}>Remove</button>
         </article>
     )
 

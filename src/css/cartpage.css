@@ -5,8 +5,8 @@
 }
 
 .cart-product-row {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
     background-color: whitesmoke;
     border-radius: 10px;

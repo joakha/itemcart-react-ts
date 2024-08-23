@@ -20,8 +20,9 @@ const ProductBox = ({ product }: ProductBoxProps): ReactElement => {
                     <p>{String(product.price) + "€"}</p>
                 </div>
 
-                { productInCart && 
-                <p className="in-cart-message">Item is in cart</p>
+                {
+                    productInCart &&
+                    <p className="in-cart-message">Item is in cart</p>
                 }
                 <button className="product-info-button" onClick={() => dispatch({ type: useReducerActions.addToCart, payload: product })}>Add to Cart</button>
             </div>

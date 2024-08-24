@@ -1,15 +1,15 @@
 import { ChangeEvent, ReactElement, useContext, useState } from "react";
 import "../css/layout.css"
-import { Product } from "../interfaces/interfaces";
-import ProductsPage from "./ProductsPage";
+import { Product } from "../interfaces/interfaces.ts";
+import ProductsPage from "./ProductsPage.tsx";
 import { ProductsContext } from "../context/ProductContextProvider.tsx";
-import Header from "./Header.tsx";
-import Sidebar from "./Sidebar.tsx";
+import Header from "./CartHeader.tsx";
+import Sidebar from "./CartSidebar.tsx";
 import { Route, Routes } from "react-router-dom";
 import CartPage from "./CartPage.tsx";
-import Footer from "./Footer.tsx";
+import Footer from "./CartFooter.tsx";
 
-const Layout = (): ReactElement => {
+const CartLayout = (): ReactElement => {
 
     const { products } = useContext(ProductsContext);
     const [keyword, setKeyword] = useState("");
@@ -39,4 +39,4 @@ const Layout = (): ReactElement => {
     )
 }
 
-export default Layout;
+export default CartLayout;

@@ -17,7 +17,7 @@ const ProductBox = ({ product }: ProductBoxProps): ReactElement => {
             <div className="product-info-box">
                 <div className="product-info">
                     <p>{product.description}</p>
-                    <p>{String(product.price) + "€"}</p>
+                    <p>{product.price}€</p>
                 </div>
 
                 {

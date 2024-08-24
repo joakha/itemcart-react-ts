@@ -12,16 +12,15 @@ const ProductCart = (): ReactElement => {
     }, [])
 
     return (
-        <>
             <section className="cart-content">
                 {
-                    sortedCart.length > 0 ? sortedCart.map(cartProduct => (
-                        <CartProductRow key={cartProduct.id} cartProduct={cartProduct} />
-                    )) :
+                    sortedCart.length ?
+                        sortedCart.map(cartProduct => (
+                            <CartProductRow key={cartProduct.id} cartProduct={cartProduct} />
+                        )) :
                         <p className="placeholder">Cart is Empty.</p>
                 }
             </section>
-        </>
     );
 }
 

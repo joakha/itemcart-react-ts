@@ -17,6 +17,10 @@ export interface CartProduct {
 
 //types for component props
 
+export interface ChildrenProps {
+    children: ReactElement | ReactElement[]
+}
+
 export interface HeaderProps {
     filterProducts: (e: ChangeEvent<HTMLInputElement>) => void
 }
@@ -33,20 +37,14 @@ export interface ProductBoxProps {
     product: Product
 }
 
-//types for all contexts
-
-export interface ChildrenType {
-    children: ReactElement | ReactElement[]
-}
-
-//types for productcontext
+//types for product context
 
 export interface ProductContextType {
     loading: boolean,
     products: Product[]
 }
 
-//types for cartcontext
+//types for cart state
 
 export interface CartStateType {
     headerTitle: string,

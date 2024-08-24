@@ -78,6 +78,7 @@ body {
     align-items: center;
     padding-left: 50px;
     padding-right: 50px;
+    gap: 50px;
 }
 
 .layout-footer .order-button {
@@ -89,7 +90,6 @@ body {
     cursor: pointer;
     transition: background-color 0.15s;
     box-shadow: 1px 1px 3px black;
-    margin-left: 50px;
 }
 
 .layout-footer .order-button:hover { 

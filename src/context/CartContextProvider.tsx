@@ -1,5 +1,5 @@
 import { createContext, ReactElement, useReducer } from "react"
-import { ChildrenType, CartStateType, CartStateActionType, Product, CartProduct } from "../interfaces/interfaces"
+import { ChildrenProps, CartStateType, CartStateActionType, Product, CartProduct } from "../interfaces/interfaces"
 
 const useReducerActions = {
     updateHeaderTitle: "updateHeaderTitle",
@@ -50,7 +50,7 @@ const useCartContext = (useReducerActions: useReducerActionType) => {
     const headerTitle = state.headerTitle;
     const sortedCart: CartProduct[] = state.cart.sort((a: CartProduct, b: CartProduct) => a.name.localeCompare(b.name));
     const cartProductCount = sortedCart.reduce((prev, curr) => prev + curr.quantity, 0);
-    const totalPrice = sortedCart.reduce((prev, curr) => prev + curr.quantity * curr.price, 0);
+    const totalCartPrice = sortedCart.reduce((prev, curr) => prev + curr.quantity * curr.price, 0);
 
     const submitOrder = async (url: string, cartContents: CartProduct[]) => {
         try {
@@ -63,7 +63,7 @@ const useCartContext = (useReducerActions: useReducerActionType) => {
         }
     }
 
-    return { useReducerActions, dispatch, headerTitle, sortedCart, cartProductCount, totalPrice, submitOrder };
+    return { useReducerActions, dispatch, headerTitle, sortedCart, cartProductCount, totalCartPrice, submitOrder };
 }
 
 type CartContextType = ReturnType<typeof useCartContext>
@@ -74,13 +74,13 @@ const initCartContextState: CartContextType = {
     headerTitle: "",
     sortedCart: [],
     cartProductCount: 0,
-    totalPrice: 0,
+    totalCartPrice: 0,
     submitOrder: () => { return Promise.resolve() }
 }
 
 export const CartContext = createContext<CartContextType>(initCartContextState);
 
-export const CartContextProvider = ({ children }: ChildrenType): ReactElement => {
+export const CartContextProvider = ({ children }: ChildrenProps): ReactElement => {
     return (
         <CartContext.Provider value={useCartContext(useReducerActions)}>
             {children}

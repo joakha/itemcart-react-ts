@@ -1,4 +1,4 @@
-import { ChildrenType, Product, ProductContextType } from "../interfaces/interfaces"
+import { ChildrenProps, Product, ProductContextType } from "../interfaces/interfaces"
 import { createContext, ReactElement, useEffect, useState } from "react"
 import { databaseURL } from "../constants/constants"
 
@@ -9,7 +9,7 @@ const initProductContextState: ProductContextType = {
 
 export const ProductsContext = createContext<ProductContextType>(initProductContextState);
 
-export const ProductContextProvider = ({ children }: ChildrenType): ReactElement => {
+export const ProductContextProvider = ({ children }: ChildrenProps): ReactElement => {
 
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(false);

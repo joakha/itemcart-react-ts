@@ -1,7 +1,7 @@
 import { ReactElement } from "react"
 import { Link } from "react-router-dom"
 
-const Sidebar = (): ReactElement => {
+const CartSidebar = (): ReactElement => {
     return (
         <nav className="cart-sidebar">
             <Link style={{ marginTop: "100px" }} to={"/"}>
@@ -14,4 +14,4 @@ const Sidebar = (): ReactElement => {
     )
 }
 
-export default Sidebar
+export default CartSidebar

@@ -18,15 +18,14 @@ const Products = ({ products }: ProductPageProps): ReactElement => {
         <>
             {
                 loading ?
-                    (<p className="placeholder">Loading products...</p>) :
-                    products.length ? (
+                    <p className="placeholder">Loading products...</p> :
+                    products.length ?
                         <section className="products-page">
                             {
                                 products.map(product => <ProductBox key={product.id} product={product} />)
                             }
-                        </section>
-                    ) :
-                        (< p className="placeholder">No products by such name.</p>)
+                        </section> :
+                        < p className="placeholder">No products by such name.</p>
             }
         </>
     )

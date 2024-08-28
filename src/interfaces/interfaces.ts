@@ -1,18 +1,25 @@
 import { ChangeEvent, ReactElement } from "react"
 
-export interface Product {
+export interface Item {
     id: number,
     name: string,
     description: string,
     price: number
 }
 
-export interface CartProduct {
+export interface Purchase {
     id: number,
     name: string,
     description: string,
     price: number,
     quantity: number
+}
+
+export interface useReducerActionsType {
+    updateHeaderTitle: string,
+    addPurchase: string,
+    removePurchase: string,
+    clearPurchases: string
 }
 
 //types for component props
@@ -21,44 +28,37 @@ export interface ChildrenProps {
     children: ReactElement | ReactElement[]
 }
 
-export interface HeaderProps {
-    filterProducts: (e: ChangeEvent<HTMLInputElement>) => void
+export interface InventoryPageProps {
+    inventory: Item[]
 }
 
-export interface CartProductRowProps {
-    cartProduct: CartProduct
+export interface ItemBoxProps {
+    item: Item
 }
 
-export interface ProductPageProps {
-    products: Product[]
+export interface LayoutHeaderProps {
+    filterItems: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export interface ProductBoxProps {
-    product: Product
+export interface PurchaseRowProps {
+    purchase: Purchase
 }
 
-//types for product context
+//types for inventory context
 
-export interface ProductContextType {
+export interface InventoryContextType {
     loading: boolean,
-    products: Product[]
+    inventory: Item[]
 }
 
 //types for cart state
 
 export interface CartStateType {
     headerTitle: string,
-    cart: CartProduct[],
+    cart: Purchase[],
 }
 
 export interface CartStateActionType {
     type: string,
-    payload?: string | Product | CartProduct
-}
-
-export interface useReducerActionsType {
-    updateHeaderTitle: string;
-    addToCart: string;
-    removeFromCart: string;
-    clearCart: string;
+    payload?: string | Item | Purchase
 }

@@ -1,9 +1,9 @@
 import { ReactElement, useContext, useEffect } from "react";
 import { CartContext } from "../context/CartContextProvider";
-import CartProductRow from "./CartProductRow";
+import PurchaseRow from "./PurchaseRow";
 import "../css/cartpage.css"
 
-const ProductCart = (): ReactElement => {
+const PurchaseCartPage = (): ReactElement => {
 
     const { useReducerActions, dispatch, sortedCart } = useContext(CartContext);
 
@@ -15,8 +15,8 @@ const ProductCart = (): ReactElement => {
             <section className="cart-content">
                 {
                     sortedCart.length ?
-                        sortedCart.map(cartProduct => (
-                            <CartProductRow key={cartProduct.id} cartProduct={cartProduct} />
+                        sortedCart.map(purchase => (
+                            <PurchaseRow key={purchase.id} purchase={purchase} />
                         )) :
                         <p className="placeholder">Cart is Empty.</p>
                 }
@@ -24,4 +24,4 @@ const ProductCart = (): ReactElement => {
     );
 }
 
-export default ProductCart;
+export default PurchaseCartPage;

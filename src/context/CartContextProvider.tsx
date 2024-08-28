@@ -1,21 +1,21 @@
 import { createContext, ReactElement, useReducer } from "react"
-import { ChildrenProps, CartStateType, CartStateActionType, Product, CartProduct, useReducerActionsType } from "../interfaces/interfaces"
+import { ChildrenProps, CartStateType, CartStateActionType, Item, Purchase, useReducerActionsType } from "../interfaces/interfaces"
 
 const useReducerActions: useReducerActionsType = {
     updateHeaderTitle: "updateHeaderTitle",
-    addToCart: "addToCart",
-    removeFromCart: "removeFromCart",
-    clearCart: "clearCart"
+    addPurchase: "addPurchase",
+    removePurchase: "removePurchase",
+    clearPurchases: "clearPurchases"
 }
 
 type CartContextType = {
     useReducerActions: useReducerActionsType,
     dispatch: React.Dispatch<CartStateActionType>,
     headerTitle: string,
-    sortedCart: CartProduct[],
-    cartProductCount: number,
-    totalCartPrice: number,
-    submitOrder: (url: string, cartContents: CartProduct[]) => Promise<void>
+    sortedCart: Purchase[],
+    purchaseCount: number,
+    orderPrice: number,
+    submitOrder: (url: string, cartContents: Purchase[]) => Promise<void>
 }
 
 const initCartContextState: CartContextType = {
@@ -23,8 +23,8 @@ const initCartContextState: CartContextType = {
     dispatch: () => { },
     headerTitle: "",
     sortedCart: [],
-    cartProductCount: 0,
-    totalCartPrice: 0,
+    purchaseCount: 0,
+    orderPrice: 0,
     submitOrder: () => { return Promise.resolve() }
 }
 
@@ -38,20 +38,20 @@ const CartContextProvider = ({ children }: ChildrenProps): ReactElement => {
             case useReducerActions.updateHeaderTitle:
                 return { ...state, headerTitle: action.payload as string }
 
-            case useReducerActions.addToCart:
-                const payloadProduct = action.payload as Product;
-                const filteredCart: CartProduct[] = state.cart.filter(product => product.id !== payloadProduct.id);
-                const productInCart = state.cart.find(product => product.id === payloadProduct.id);
-                const productQuantity: number = productInCart ? productInCart.quantity + 1 : 1;
-                localStorage.setItem("cart", JSON.stringify([...filteredCart, { ...payloadProduct, quantity: productQuantity }]));
-                return { ...state, cart: [...filteredCart, { ...payloadProduct, quantity: productQuantity }] };
+            case useReducerActions.addPurchase:
+                const payloadItem = action.payload as Item;
+                const filteredCart: Purchase[] = state.cart.filter(purchase => purchase.id !== payloadItem.id);
+                const purchaseInCart = state.cart.find(purchase => purchase.id === payloadItem.id);
+                const purchaseQuantity: number = purchaseInCart ? purchaseInCart.quantity + 1 : 1;
+                localStorage.setItem("cart", JSON.stringify([...filteredCart, { ...payloadItem, quantity: purchaseQuantity }]));
+                return { ...state, cart: [...filteredCart, { ...payloadItem, quantity: purchaseQuantity }] };
 
-            case useReducerActions.removeFromCart:
-                const { id } = action.payload as CartProduct;
-                localStorage.setItem("cart", JSON.stringify(state.cart.filter(cartProduct => cartProduct.id !== id)));
-                return { ...state, cart: state.cart.filter(cartProduct => cartProduct.id !== id) };
+            case useReducerActions.removePurchase:
+                const { id } = action.payload as Purchase;
+                localStorage.setItem("cart", JSON.stringify(state.cart.filter(purchase => purchase.id !== id)));
+                return { ...state, cart: state.cart.filter(purchase => purchase.id !== id) };
 
-            case useReducerActions.clearCart:
+            case useReducerActions.clearPurchases:
                 localStorage.removeItem("cart");
                 return { ...state, cart: [] };
 
@@ -68,16 +68,16 @@ const CartContextProvider = ({ children }: ChildrenProps): ReactElement => {
     const [state, dispatch] = useReducer(reducer, initCartState);
 
     const headerTitle = state.headerTitle;
-    const sortedCart: CartProduct[] = state.cart.sort((a: CartProduct, b: CartProduct) => a.name.localeCompare(b.name));
-    const cartProductCount = sortedCart.reduce((prev, curr) => prev + curr.quantity, 0);
-    const totalCartPrice = sortedCart.reduce((prev, curr) => prev + curr.quantity * curr.price, 0);
+    const sortedCart: Purchase[] = state.cart.sort((a: Purchase, b: Purchase) => a.name.localeCompare(b.name));
+    const purchaseCount = sortedCart.reduce((prev, curr) => prev + curr.quantity, 0);
+    const orderPrice = sortedCart.reduce((prev, curr) => prev + curr.quantity * curr.price, 0);
 
-    const submitOrder = async (url: string, cartContents: CartProduct[]) => {
+    const submitOrder = async (url: string, cartContents: Purchase[]) => {
         try {
             const response = await fetch(url + "/orders",
-                { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items: cartContents }) });
+                { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ purchases: cartContents }) });
             response.ok ? console.log("Order successfully received!") : console.log("Error submitting order!");
-            dispatch({ type: useReducerActions.clearCart })
+            dispatch({ type: useReducerActions.clearPurchases })
         } catch (error) {
             console.error(error);
         }
@@ -88,8 +88,8 @@ const CartContextProvider = ({ children }: ChildrenProps): ReactElement => {
         dispatch,
         headerTitle,
         sortedCart,
-        cartProductCount,
-        totalCartPrice,
+        purchaseCount,
+        orderPrice,
         submitOrder
     }
 

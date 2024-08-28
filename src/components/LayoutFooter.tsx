@@ -2,9 +2,9 @@ import { CartContext } from "../context/CartContextProvider"
 import { databaseURL } from "../constants/constants"
 import { useContext } from "react"
 
-const CartFooter = () => {
+const LayoutFooter = () => {
 
-    const { headerTitle, sortedCart, totalCartPrice, submitOrder } = useContext(CartContext);
+    const { headerTitle, sortedCart, orderPrice, submitOrder } = useContext(CartContext);
 
     return (
         <footer className="layout-footer">
@@ -12,7 +12,7 @@ const CartFooter = () => {
             {
                 headerTitle === "Cart Page" && sortedCart.length > 0 &&
                 <>
-                    <p>Total Order Price: {totalCartPrice}€</p>
+                    <p>Order Price: {orderPrice}€</p>
                     <button className="order-button" onClick={() => submitOrder(databaseURL, sortedCart)}>Submit Order</button>
                 </>
             }
@@ -21,4 +21,4 @@ const CartFooter = () => {
 
 }
 
-export default CartFooter
+export default LayoutFooter

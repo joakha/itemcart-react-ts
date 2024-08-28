@@ -10,7 +10,7 @@ const CartFooter = () => {
         <footer className="layout-footer">
             <p>Item Cart Practice Project &copy; {new Date().getFullYear()}</p>
             {
-                headerTitle === "Cart Page" && sortedCart.length &&
+                headerTitle === "Cart Page" && sortedCart.length > 0 &&
                 <>
                     <p>Total Order Price: {totalCartPrice}€</p>
                     <button className="order-button" onClick={() => submitOrder(databaseURL, sortedCart)}>Submit Order</button>

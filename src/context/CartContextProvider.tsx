@@ -1,21 +1,36 @@
 import { createContext, ReactElement, useReducer } from "react"
-import { ChildrenProps, CartStateType, CartStateActionType, Product, CartProduct } from "../interfaces/interfaces"
+import { ChildrenProps, CartStateType, CartStateActionType, Product, CartProduct, useReducerActionsType } from "../interfaces/interfaces"
 
-const useReducerActions = {
+const useReducerActions: useReducerActionsType = {
     updateHeaderTitle: "updateHeaderTitle",
     addToCart: "addToCart",
     removeFromCart: "removeFromCart",
     clearCart: "clearCart"
 }
 
-type useReducerActionType = typeof useReducerActions;
+type CartContextType = {
+    useReducerActions: useReducerActionsType,
+    dispatch: React.Dispatch<CartStateActionType>,
+    headerTitle: string,
+    sortedCart: CartProduct[],
+    cartProductCount: number,
+    totalCartPrice: number,
+    submitOrder: (url: string, cartContents: CartProduct[]) => Promise<void>
+}
 
-const useCartContext = (useReducerActions: useReducerActionType) => {
+const initCartContextState: CartContextType = {
+    useReducerActions,
+    dispatch: () => { },
+    headerTitle: "",
+    sortedCart: [],
+    cartProductCount: 0,
+    totalCartPrice: 0,
+    submitOrder: () => { return Promise.resolve() }
+}
 
-    const initCartState: CartStateType = {
-        headerTitle: "",
-        cart: JSON.parse(localStorage.getItem("cart") || "[]")
-    }
+export const CartContext = createContext<CartContextType>(initCartContextState);
+
+const CartContextProvider = ({ children }: ChildrenProps): ReactElement => {
 
     const reducer = (state: CartStateType, action: CartStateActionType): CartStateType => {
 
@@ -41,8 +56,13 @@ const useCartContext = (useReducerActions: useReducerActionType) => {
                 return { ...state, cart: [] };
 
             default:
-                throw new Error()
+                throw new Error();
         }
+    }
+
+    const initCartState: CartStateType = {
+        headerTitle: "",
+        cart: JSON.parse(localStorage.getItem("cart") || "[]")
     }
 
     const [state, dispatch] = useReducer(reducer, initCartState);
@@ -63,27 +83,21 @@ const useCartContext = (useReducerActions: useReducerActionType) => {
         }
     }
 
-    return { useReducerActions, dispatch, headerTitle, sortedCart, cartProductCount, totalCartPrice, submitOrder };
-}
+    const cartContextProviderValue = {
+        useReducerActions,
+        dispatch,
+        headerTitle,
+        sortedCart,
+        cartProductCount,
+        totalCartPrice,
+        submitOrder
+    }
 
-type CartContextType = ReturnType<typeof useCartContext>
-
-const initCartContextState: CartContextType = {
-    useReducerActions,
-    dispatch: () => { },
-    headerTitle: "",
-    sortedCart: [],
-    cartProductCount: 0,
-    totalCartPrice: 0,
-    submitOrder: () => { return Promise.resolve() }
-}
-
-export const CartContext = createContext<CartContextType>(initCartContextState);
-
-export const CartContextProvider = ({ children }: ChildrenProps): ReactElement => {
     return (
-        <CartContext.Provider value={useCartContext(useReducerActions)}>
+        <CartContext.Provider value={cartContextProviderValue}>
             {children}
         </CartContext.Provider>
     )
 }
+
+export default CartContextProvider

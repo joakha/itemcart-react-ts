@@ -3,11 +3,11 @@ import "../css/layout.css"
 import { Product } from "../interfaces/interfaces.ts";
 import ProductsPage from "./ProductsPage.tsx";
 import { ProductsContext } from "../context/ProductContextProvider.tsx";
-import Header from "./CartHeader.tsx";
-import Sidebar from "./CartSidebar.tsx";
+import CartHeader from "./CartHeader.tsx";
+import CartSidebar from "./CartSidebar.tsx";
 import { Route, Routes } from "react-router-dom";
 import CartPage from "./CartPage.tsx";
-import Footer from "./CartFooter.tsx";
+import CartFooter from "./CartFooter.tsx";
 
 const CartLayout = (): ReactElement => {
 
@@ -21,8 +21,8 @@ const CartLayout = (): ReactElement => {
 
     return (
         <>
-            <Header filterProducts={filterProducts} />
-            <Sidebar />
+            <CartHeader filterProducts={filterProducts} />
+            <CartSidebar />
             <main>
                 <Routes>
                     <Route path="/" element={
@@ -34,7 +34,7 @@ const CartLayout = (): ReactElement => {
                     <Route path="/cart" element={<CartPage />} />
                 </Routes>
             </main>
-            <Footer />
+            <CartFooter />
         </>
     )
 }

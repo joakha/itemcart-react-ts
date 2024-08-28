@@ -55,3 +55,10 @@ export interface CartStateActionType {
     type: string,
     payload?: string | Product | CartProduct
 }
+
+export interface useReducerActionsType {
+    updateHeaderTitle: string;
+    addToCart: string;
+    removeFromCart: string;
+    clearCart: string;
+}

@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
-import Layout from './components/CartLayout'
+import CartLayout from './components/CartLayout';
 
 function App(): ReactElement {
-  return <Layout />;
+  return <CartLayout />;
 }
 
 export default App

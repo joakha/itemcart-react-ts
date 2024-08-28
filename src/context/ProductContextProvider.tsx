@@ -9,7 +9,7 @@ const initProductContextState: ProductContextType = {
 
 export const ProductsContext = createContext<ProductContextType>(initProductContextState);
 
-export const ProductContextProvider = ({ children }: ChildrenProps): ReactElement => {
+const ProductContextProvider = ({ children }: ChildrenProps): ReactElement => {
 
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -37,3 +37,5 @@ export const ProductContextProvider = ({ children }: ChildrenProps): ReactElemen
         </ProductsContext.Provider>
     )
 }
+
+export default ProductContextProvider
